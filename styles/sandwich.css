@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -12,8 +12,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -24,7 +24,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -114,3 +114,36 @@ form .submit input{
 /*************************************************
             Fake Checkboxes/Radios
 *************************************************/
+
+/* use CSS to hide the original checkboxes and radios, and replace them with something that actually looks nice */
+
+input[type="checkbox"], input[type="radio"]{
+    appearance:none; /*hide the originals*/
+    border: 0.15em solid black; /* give the empty checkbox space a border*/
+    width: 1.35em;
+    height: 1.25em;
+    display: grid; /* use grid to ensure the fake checkbox/radio will be centred */
+    place-content: center;
+}
+
+/* add border radius so we can tell the difference between checkbox and radio */
+input[type="checkbox"]{ border-radius: 0.15em; }
+input[type="radio"]{ border-radius:50%; }
+
+/* use the pseudo-class before to add the thing in the centre */
+input [type="checkbox"]::before, input [type="radio"]::before{
+    content: ""; /* before and after do not exist unless you put content in them */
+    width:0.65em;
+    height:0.65em;
+    background: black;
+    scale:0; /* use scale to hide it until the box is checked */
+    transition: all 120ms ease-in-out; /*a little animation to make it look cool */
+}
+
+input[type="checkbox"]::before{ border-radius: 0.15em; }
+input[type="radio"]::before{ border-radius:50%; }
+
+/* use the pseudo class "checked" to make the vox appear when things are checked */
+input[type="checkbox"]:checked::before, input[type="radio"]:check::before{
+    scale:1; /*set the scale back to normal*/
+}
